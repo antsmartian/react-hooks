@@ -16,7 +16,6 @@ const Grid = ({className, count, drawing, draw}) => {
         for(let rowIdx=0; rowIdx < count; rowIdx++) {
             const cellCoords = [ colIdx, rowIdx ];
 
-            console.log("render..")
             const isActive = drawing.some(coords =>
                 cellCoords[0] === coords[0] && cellCoords[1] === coords[1])
             cells.push(
@@ -33,7 +32,7 @@ const Grid = ({className, count, drawing, draw}) => {
             {cells}
         </div>
     )
-}
+};
 
 const Cell = ({onClick, isActive}) => {
 
@@ -44,13 +43,13 @@ const Cell = ({onClick, isActive}) => {
         position: 'relative',
         cursor: 'crosshair',
         backgroundColor: isActive ? '#000' : 'inherit',
-        borderColor : isActive ? '#a92314' : 'inherit',
+        borderColor : isActive ? '#80cb17' : 'inherit',
         borderWidth: isActive ? '2px' : '1px',
     };
 
 
     return (
-        <div onClick={onClick} isActive={isActive} style={cell}></div>
+        <div onClick={onClick} isActive={isActive} style={cell} />
     )
 }
 

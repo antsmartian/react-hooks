@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Layout from './components/layout';
 import useHistory from './lib/use-history';
 import Grid from "./components/grid";
+import Button from "./components/Button"
 
 const App = () => {
 
@@ -12,18 +13,14 @@ const App = () => {
 
     return (
         <Layout>
-            <button onClick={e => {
-                e.preventDefault();
-                drawingHistory.undo();
-            }} disabled={!drawingHistory.hasUndo}>
-                {`<= undo`}
-            </button>
-            <button onClick={e => {
-                e.preventDefault();
-                drawingHistory.redo()
-            }} disabled={!drawingHistory.hasRedo}>
-                {`redo =>`}
-            </button>
+            <Button onClick={drawingHistory.undo}
+                    disabled={!drawingHistory.hasUndo}
+                    text={'<= Undo'} />
+
+            <Button onClick={drawingHistory.redo}
+                    disabled={!drawingHistory.hasRedo}
+                    text={'Redo =>'} />
+
             <br /><br />
             <Grid count={5} drawing={drawing} draw={draw}/>
         </Layout>

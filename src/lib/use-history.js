@@ -12,7 +12,6 @@ const useHistory = initialState => {
             ? versions.slice(0, currentVersion + 1)
             : versions
 
-        console.log(versions)
         setVersions([ ...nextVersions, version ])
         setCurrentVersion(nextVersions.length)
     }
