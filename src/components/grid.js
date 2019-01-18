@@ -16,12 +16,19 @@ const Grid = ({className, count, drawing, draw}) => {
         for(let rowIdx=0; rowIdx < count; rowIdx++) {
             const cellCoords = [ colIdx, rowIdx ];
 
-            console.log("render..")
-            const isActive = drawing.some(coords =>
-                cellCoords[0] === coords[0] && cellCoords[1] === coords[1])
+            // console.log(drawing)
+            const isActive = drawing.some(coords => {
+                // console.log("coords is",coords)
+                return cellCoords[0] === coords[0] && cellCoords[1] === coords[1]
+            });
+
+            // console.log("clicked ", cellCoords, isActive)
             cells.push(
                 <Cell
-                    onClick={() => draw(cellCoords)}
+                    onClick={() => {
+                        // console.log("cell corr0dine", cellCoords)
+                        draw(cellCoords)
+                    }}
                     isActive={isActive}
                 />
             )
