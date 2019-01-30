@@ -1,30 +1,44 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Layout from './components/layout';
-import useHistory from './lib/use-history';
-import Grid from "./components/grid";
-import Button from "./components/Button"
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-const App = () => {
+// 2 counter button
+// 1 , 5
 
-    const [ drawing, setDrawing, drawingHistory ] = useHistory([])
+// Custom hooks..
+function useCounter( {initialState} ) {
+    const [count, setCount] = useState(initialState);
 
-    const draw = coord => setDrawing([ ...drawing, coord ])
+    const increment = () => setCount(count + 1);
+    const decrement = () => setCount(count - 1);
+
+    return [count, {
+        increment,
+        decrement,
+        setCount
+    }]
+}
+
+
+// different styles
+function App() {
+
+    const [count, {increment, decrement}] = useCounter({initialState : 0});
 
     return (
-        <Layout>
-            <Button onClick={drawingHistory.undo}
-                    disabled={!drawingHistory.hasUndo}
-                    text={'<= Undo'} />
-
-            <Button onClick={drawingHistory.redo}
-                    disabled={!drawingHistory.hasRedo}
-                    text={'Redo =>'} />
-
-            <br /><br />
-            <Grid count={5} drawing={drawing} draw={draw}/>
-        </Layout>
+        <div>
+            <p>{count}</p>
+            <button onClick={increment}>Inc</button>
+            <button onClick={decrement}>Dec</button>
+        </div>
     )
-};
 
-ReactDOM.render(<App />, document.getElementById('root'))
+
+}
+
+// different
+function App2() {
+    const [count, {increment, decrement}] = useCounter({initialState : 10});
+}
+
+const root = document.getElementById("root");
+ReactDOM.render(<App />, root);
