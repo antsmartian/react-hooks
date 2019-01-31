@@ -1,44 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-// 2 counter button
-// 1 , 5
-
-// Custom hooks..
-function useCounter( {initialState} ) {
-    const [count, setCount] = useState(initialState);
-
-    const increment = () => setCount(count + 1);
-    const decrement = () => setCount(count - 1);
-
-    return [count, {
-        increment,
-        decrement,
-        setCount
-    }]
-}
-
-
-// different styles
 function App() {
 
-    const [count, {increment, decrement}] = useCounter({initialState : 0});
+    let [names, setNames] = useState([]);
+
+    useEffect(() => {
+        fetch("https://uinames.com/api/?amount=10&region=Romania")
+            .then(response => response.json())
+            .then(data => {
+                setNames(data)
+            })
+    }, []);
 
     return (
         <div>
-            <p>{count}</p>
-            <button onClick={increment}>Inc</button>
-            <button onClick={decrement}>Dec</button>
+            <div>
+                {
+                    names.map((items, i) => (
+                        <div key={i}>
+                            {items.name} {items.gender}
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     )
 
-
 }
 
-// different
-function App2() {
-    const [count, {increment, decrement}] = useCounter({initialState : 10});
-}
-
-const root = document.getElementById("root");
-ReactDOM.render(<App />, root);
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
